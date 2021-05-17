@@ -34,6 +34,3 @@ Setting up individual zones is rather simple, add a blank **GameObject** as a ch
 - using individual zones with unique settings:
 
 ![unique individual zone settings](https://raw.githubusercontent.com/AHauntedArmy/MonkeSwim/master/images/multiple%20zones%20example.PNG)
-
-# release
-release can be found [here]() with an included map i used for testing. to install create a folder in your plugins folder and copy over AirSwim.dll. for the map copy it into your custom maps folder.

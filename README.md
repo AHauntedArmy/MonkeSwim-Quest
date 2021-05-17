@@ -34,3 +34,6 @@ Setting up individual zones is rather simple, add a blank **GameObject** as a ch
 - using individual zones with unique settings:
 
 ![unique individual zone settings](https://raw.githubusercontent.com/AHauntedArmy/MonkeSwim/master/images/multiple%20zones%20example.PNG)
+
+# release 
+you can find the latatest release [here](https://github.com/AHauntedArmy/MonkeSwim-Quest/releases/latest)

@@ -109,14 +109,16 @@ void MonkeSwim::StartMod()
     Transform* playerTransform = playerInstance->get_transform();
     if(playerTransform == nullptr) return;
 
-    AverageVelocityDirection::lastParentPostion = playerTransform->get_position();
+    AverageVelocityDirection::lastParentPosition = playerTransform->get_position();
 }
 
 void MonkeSwim::EnableMod(bool toEnable)
 {
     //get a local pointer to the players rigidbody
-    Rigidbody* playerPhysics = Player::get_Instance()->playerRigidBody;
-    
+    Player* playerInstance = Player::get_Instance();
+    if(playerInstance == nullptr) return;
+
+    Rigidbody* playerPhysics = playerInstance->playerRigidBody;
     if(playerPhysics == nullptr) return;
 
     if(toEnable){
@@ -124,10 +126,14 @@ void MonkeSwim::EnableMod(bool toEnable)
         playerPhysics->set_drag(dragValue);
         playerPhysics->set_useGravity(false);
 
+         AverageVelocityDirection::lastParentPosition = playerInstance->get_transform()->get_position();
+
     } else {
         INFO("enable mod = false");
         playerPhysics->set_drag(0.0f);
         playerPhysics->set_useGravity(true);
+
+        velocity = Vector3::get_zero();
     }
 
     canFly = toEnable;
@@ -151,9 +157,8 @@ void MonkeSwim::CalculateVelocity()
     bool rightInput = CheckInput(rightController);
     bool leftInput = CheckInput(leftController);
 
-    Vector3 vectorZero = Vector3::get_zero();
-    Vector3 rightvelocity = vectorZero;
-    Vector3 leftvelocity = vectorZero;
+    Vector3 rightvelocity = Vector3::get_zero();
+    Vector3 leftvelocity = Vector3::get_zero();
 
     if( rightInput || leftInput){
         
@@ -165,8 +170,6 @@ void MonkeSwim::CalculateVelocity()
 
         float rightSpeed = 0.0f;
         float leftSpeed = 0.0f;
-
-        velocity = vectorZero;
 
         if(rightInput){
             INFO("calculating right controller vectors");
@@ -206,7 +209,7 @@ void MonkeSwim::CalculateVelocity()
 
 void MonkeSwim::UpdateVelocity()
 {
-    if(!canFly) return; 
+    if(!canFly) return;
 
     //local pointer to the player, if this doesn't exist we can't do anything so just exit the function
     Player* playerInstance = Player::get_Instance();
@@ -227,12 +230,13 @@ void MonkeSwim::UpdateVelocity()
         INFO("maxswimspeed = %d \nswimmultiplier = %d \ndragvalue = %d", maxSwimSpeed, swimMultiplier, dragValue);
         playerPhysics->set_velocity(playerVelocity);
     }
+    
+    //store our current player position to be used for localising hand position in the next frame
+    AverageVelocityDirection::lastParentPosition = playerInstance->get_transform()->get_position();
 
     //reset velocity back to zero
     velocity = Vector3::get_zero();
-
-    //store our current player position to be used for localising hand position in the next frame
-    AverageVelocityDirection::lastParentPostion = playerInstance->get_transform()->get_position();
+    
 }
 
 bool MonkeSwim::CheckInput(InputDevice& inputController)

@@ -8,7 +8,7 @@ extern Logger& getLogger();
 #define INFO(value...) getLogger().info(value)
 
 //initializing static object
-Vector3 AverageVelocityDirection::lastParentPostion;
+Vector3 AverageVelocityDirection::lastParentPosition;
 
 AverageVelocityDirection::AverageVelocityDirection(bool hand)
 {
@@ -46,7 +46,7 @@ void AverageVelocityDirection::Update()
     }
 
     //localise the hand position to the players position so player drift doesn't add velocity
-    Vector3 lastLocalised = lastPosition - lastParentPostion;
+    Vector3 lastLocalised = lastPosition - lastParentPosition;
     Vector3 currentLocalised = currentPosition - playerInstance->get_transform()->get_position();
 
     //calculate the direction of the players arm swing

@@ -11,7 +11,7 @@ class AverageVelocityDirection
         //static because both instances use the same parent,
         //used to find the local position of the hand in the previous frame, was causing rubber banding without it
         //value is to be updated outside the class in a postfix of player::update()
-        static UnityEngine::Vector3 lastParentPostion;
+        static UnityEngine::Vector3 lastParentPosition;
     
     private:
         

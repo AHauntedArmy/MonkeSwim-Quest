@@ -6,7 +6,7 @@
     "author": "AHauntedArmy",
     "version": "0.1.1",
     "packageId": "com.AnotherAxiom.GorillaTag",
-    "packageVersion": "1.0.6",
+    "packageVersion": "1.0.7",
     "description": "",
     "modFiles": [
         "libMonkeSwim-Quest.so"
@@ -17,8 +17,8 @@
     "dependencies": [
         {
             "id": "monkecodegen",
-            "version": ">=0.3.0",
-            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeCodegen/releases/download/0.3.0/MonkeCodegen.qmod"
+            "version": ">=0.4.0",
+            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeCodegen/releases/download/0.4.0/MonkeCodegen.qmod"
         }
     ]
 }

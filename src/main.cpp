@@ -37,6 +37,7 @@ MAKE_HOOK_OFFSETLESS(Player_Update, void, Il2CppObject* self)
     MonkeSwim::UpdateVelocity();
 }
 
+//MapLoader::Loader::JoinGame()
 MAKE_HOOK_OFFSETLESS(MapJoined, void)
 {
     INFO("MapJoined was called");
@@ -48,6 +49,8 @@ MAKE_HOOK_OFFSETLESS(MapJoined, void)
     }
 }
 
+
+//MapLoader::Teleporter::Trigger(UnityEngine::Collider*)
 MAKE_HOOK_OFFSETLESS(MapLeft, void, MapLoader::Teleporter* self,  UnityEngine::Collider* collider)
 {
     MapLeft(self, collider);

@@ -1,18 +1,21 @@
 #include "swim/MonkeSwim.hpp"
 #include "trigger/SwimTrigger.hpp"
+
 #include "UnityEngine/Rigidbody.hpp"
-#include "UnityEngine/XR/InputDevices.hpp"
-#include "UnityEngine/XR/XRNode.hpp"
-#include "UnityEngine/XR/CommonUsages.hpp"
 #include "UnityEngine/Camera.hpp"
 #include "UnityEngine/Collider.hpp"
 #include "UnityEngine/GameObject.hpp"
 #include "UnityEngine/Transform.hpp"
 #include "UnityEngine/Vector3.hpp"
+
 #include "GorillaLocomotion/Player.hpp"
+
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/utils-functions.h"
 #include "beatsaber-hook/shared/utils/typedefs.h"
+
+#include "GlobalNamespace/OVRInput.hpp"
+#include "GlobalNamespace/OVRInput_Button.hpp"
 
 using namespace UnityEngine;
 using namespace UnityEngine::XR;
@@ -35,9 +38,6 @@ Vector3 MonkeSwim::velocity;
 
 AverageVelocityDirection MonkeSwim::rightHand(true);
 AverageVelocityDirection MonkeSwim::leftHand(false);
-
-InputDevice MonkeSwim::rightController;
-InputDevice MonkeSwim::leftController; 
 //end of static objects
 
 void MonkeSwim::StartMod()
@@ -50,8 +50,6 @@ void MonkeSwim::StartMod()
 
     //intializing codegen objects
     velocity = Vector3::get_zero();
-    rightController = InputDevices::GetDeviceAtXRNode(XRNode::RightHand);
-    leftController = InputDevices::GetDeviceAtXRNode(XRNode::LeftHand);
 
     Transform* waterSwim = monkeSwimConfig->get_transform()->Find(il2cpp_utils::newcsstr("WaterSwimTriggers"));
     Transform* useDefaults = monkeSwimConfig->get_transform()->Find(il2cpp_utils::newcsstr("AirSwimConfigDefault"));
@@ -152,10 +150,17 @@ void MonkeSwim::SetStats(UnityEngine::Vector3 stats)
 
 void MonkeSwim::CalculateVelocity()
 {
+    //plonking this here just so i don't have to do globalnamespace::ovrinput every time
+    using namespace GlobalNamespace;
+
     if(!canFly) return; 
 
-    bool rightInput = CheckInput(rightController);
-    bool leftInput = CheckInput(leftController);
+    bool rightInput = false;
+    bool leftInput = false;
+
+    //unity's XR system is buggy, use oculus integration OVR stuff instead
+    rightInput = OVRInput::Get(OVRInput::Button::PrimaryHandTrigger, OVRInput::Controller::RTouch);
+    leftInput = OVRInput::Get(OVRInput::Button::PrimaryHandTrigger, OVRInput::Controller::LTouch);
 
     Vector3 rightvelocity = Vector3::get_zero();
     Vector3 leftvelocity = Vector3::get_zero();
@@ -237,12 +242,4 @@ void MonkeSwim::UpdateVelocity()
     //reset velocity back to zero
     velocity = Vector3::get_zero();
     
-}
-
-bool MonkeSwim::CheckInput(InputDevice& inputController)
-{
-    INFO("checking inputs");
-    bool isInput = false;
-    inputController.TryGetFeatureValue(CommonUsages::_get_triggerButton(), isInput);
-    return isInput;
 }

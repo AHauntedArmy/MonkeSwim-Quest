@@ -18,7 +18,18 @@
         {
             "id": "monkecodegen",
             "version": ">=0.4.0",
-            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeCodegen/releases/download/0.4.0/MonkeCodegen.qmod"
+            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeCodegen/releases/latest/download/MonkeCodegen.qmod"
+        },
+        {
+            "id": "MonkeMapLoader",
+            "version": ">=1.0.2",
+            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeMapLoader/releases/latest/download/MonkeMapLoader.qmod"
+        }
+    ],
+    "fileCopies":[
+        {
+            "name": "The Dome.gtmap",
+            "destination": "/sdcard/ModData/com.AnotherAxiom.GorillaTag/Mods/MonkeMapLoader/CustomMaps/The Dome.gtmap"
         }
     ]
 }

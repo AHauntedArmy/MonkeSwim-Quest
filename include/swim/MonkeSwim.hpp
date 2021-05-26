@@ -2,7 +2,6 @@
 
 #include "Velocitydirection.hpp"
 #include "UnityEngine/Vector3.hpp"
-#include "UnityEngine/XR/InputDevice.hpp"
 #include "beatsaber-hook/shared/utils/typedefs.h"
 
 class MonkeSwim
@@ -26,9 +25,6 @@ class MonkeSwim
         static AverageVelocityDirection rightHand;
         static AverageVelocityDirection leftHand;
 
-        static UnityEngine::XR::InputDevice rightController;
-        static UnityEngine::XR::InputDevice leftController;
-
     public:
         static void StartMod();
         static void EnableMod(bool toEnable);
@@ -38,7 +34,4 @@ class MonkeSwim
         static void CalculateVelocity();
         //postfix patch on pc
         static void UpdateVelocity();
-
-    private:
-        static bool CheckInput(UnityEngine::XR::InputDevice& inputController);
 };

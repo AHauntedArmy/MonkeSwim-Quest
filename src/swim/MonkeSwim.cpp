@@ -1,5 +1,6 @@
 #include "swim/MonkeSwim.hpp"
 #include "trigger/SwimTrigger.hpp"
+
 #include "UnityEngine/Rigidbody.hpp"
 #include "UnityEngine/XR/InputDevices.hpp"
 #include "UnityEngine/XR/XRNode.hpp"
@@ -9,10 +10,15 @@
 #include "UnityEngine/GameObject.hpp"
 #include "UnityEngine/Transform.hpp"
 #include "UnityEngine/Vector3.hpp"
+
 #include "GorillaLocomotion/Player.hpp"
+
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/utils-functions.h"
 #include "beatsaber-hook/shared/utils/typedefs.h"
+
+#include "GlobalNamespace/OVRInput.hpp"
+#include "GlobalNamespace/OVRInput_Button.hpp"
 
 using namespace UnityEngine;
 using namespace UnityEngine::XR;
@@ -152,10 +158,16 @@ void MonkeSwim::SetStats(UnityEngine::Vector3 stats)
 
 void MonkeSwim::CalculateVelocity()
 {
+    //plonking this here just so i don't have to do globalnamespace::overinput every time
+    using namespace GlobalNamespace;
+
     if(!canFly) return; 
 
-    bool rightInput = CheckInput(rightController);
-    bool leftInput = CheckInput(leftController);
+    bool rightInput = false; //CheckInput(rightController);
+    bool leftInput = false; //CheckInput(leftController);
+
+    rightInput = OVRInput::Get(OVRInput::Button::PrimaryHandTrigger, OVRInput::Controller::RTouch);
+    leftInput = OVRInput::Get(OVRInput::Button::PrimaryHandTrigger, OVRInput::Controller::LTouch);
 
     Vector3 rightvelocity = Vector3::get_zero();
     Vector3 leftvelocity = Vector3::get_zero();

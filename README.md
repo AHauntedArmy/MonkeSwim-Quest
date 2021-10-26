@@ -2,7 +2,7 @@ to build this mod yourself, create a folder called MapLoader and copy libmonkema
 
 libmonkemaploader.so can be extracted from the monkemaploadaer.qmod
 
-shoutout to [Fern](https://github.com/Fernthedev) and [RedBrumbler](https://github.com/RedBrumbler), for helping me get started and debugging, wouldn't have got this done without them.
+shoutout to [Best Mod Maker Ever](https://github.com/Uuketi) and [RedBrumbler](https://github.com/RedBrumbler), for helping me get started and debugging, wouldn't have got this done without them.
 
 # MonkeSwim
 A mod for gorilla tag to move around in zero gravity on supported maps. To move around on any map that supports the mod, simply press the trigger and swing your arms as if you were swimming.
